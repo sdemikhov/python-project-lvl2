@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "sdemikhov_gendiff"
+version = "0.1.0"
+description = "Gendiff is a CLI tool to compare text to find the difference between two text files"
+authors = ["Sergey Demikhov <demikhov.sergey@gmail.com>"]
+
+packages = [
+  { include = "gendiff" },
+]
+
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Operating System :: POSIX :: Linux",
+    "Intended Audience :: End Users/Desktop",
+    "Topic :: Games/Entertainment",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Programming Language :: Python :: 3.7"
+]
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+[tool.poetry.dev-dependencies]
+flake8 = "^3.7.9"
+
+[tool.poetry.scripts]
+gendiff = "gendiff.scripts.gendiff:main"
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
