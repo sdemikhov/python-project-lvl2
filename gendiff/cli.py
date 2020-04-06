@@ -1,7 +1,7 @@
 import argparse
 
 
-def get_arguments():    
+def make_arguments():    
     parser = argparse.ArgumentParser(description="Generate diff")
 
     parser.add_argument("first_file", action="store")
@@ -18,9 +18,9 @@ def get_arguments():
     return parser.parse_args()
 
 
-def get_path_to_file1(args):
-    pass
+def get_path_to_file1(arguments):
+    return arguments.first_file
 
 
-def get_path_to_file2(args):
-    pass
+def get_path_to_file2(arguments):
+    return arguments.second_file
