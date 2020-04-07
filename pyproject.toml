@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "sdemikhov_gendiff"
-version = "0.1.0"
-description = "Gendiff is a CLI tool to compare text to find the difference between two text files"
+version = "0.2.0"
+description = "Gendiff is a CLI tool to find the difference between two JSON/YAML files"
 authors = ["Sergey Demikhov <demikhov.sergey@gmail.com>"]
 
 packages = [
