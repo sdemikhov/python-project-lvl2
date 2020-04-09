@@ -7,6 +7,17 @@
 <pre>pip install --index-url https://test.pypi.org/simple/ sdemikhov-gendiff</pre>
 <h2>Run gendiff:</h2>
 <p>To run gendiff use following commands:<ul><li>gendiff path/to/file1 path/to/file2</li><li>gendiff -h</li></ul></p>
+<p>You can also use gendiff as a library in your code:</p>
+<pre>>>> from gendiff import generate_diff
+>>> diff = generate_diff('before.json', 'after.json')
+>>> print(diff)
+{
+    host: https://github.com/sdemikhov/python-project-lvl2
+  + timeout: 20
+  - timeout: 50
+  - proxy: 123.234.53.22
+  + verbose: True
+}</pre>
 <h2>Install and run demo:</h2>
 <p> </p>
 </div>
