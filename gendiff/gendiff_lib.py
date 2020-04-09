@@ -7,7 +7,7 @@ def run():
     arguments = cli.make_arguments()
     path_to_file1 = cli.get_path_to_file1(arguments)
     path_to_file2 = cli.get_path_to_file2(arguments)
-    
+
     result = generate_diff(path_to_file1, path_to_file2)
     print(result)
 
@@ -15,9 +15,9 @@ def run():
 def generate_diff(path_to_file1, path_to_file2):
     file1 = get_data_from_json(path_to_file1)
     file2 = get_data_from_json(path_to_file2)
-    
+
     difference = make_difference(file1, file2)
-    
+
     return format_difference_plain(difference)
 
 
@@ -33,10 +33,10 @@ def make_difference(file1, file2):
         "deleted": {},
         "added": {},
     }
-    
+
     keys_file1 = set(file1.keys())
     keys_file2 = set(file2.keys())
-    
+
     shared_keys = keys_file1 & keys_file2
     unique_keys_file1 = keys_file1 - keys_file2
     unique_keys_file2 = keys_file2 - keys_file1
@@ -82,7 +82,7 @@ def format_difference_plain(difference):
     edited = stringify_edited_fields(get_edited_fields(difference))
     deleted = stringify_deleted_fields(get_deleted_fields(difference))
     added = stringify_added_fields(get_added_fields(difference))
-    
+
     return template.format(
         same=same,
         edited=edited,

@@ -1,7 +1,7 @@
 import argparse
 
 
-def make_arguments():    
+def make_arguments():
     parser = argparse.ArgumentParser(description="Generate diff")
 
     parser.add_argument("first_file", action="store")
