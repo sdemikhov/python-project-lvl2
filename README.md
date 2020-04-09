@@ -6,7 +6,7 @@
 <h2>Install gendiff:</h2>
 <pre>pip install --index-url https://test.pypi.org/simple/ sdemikhov-gendiff</pre>
 <h2>Run gendiff:</h2>
-<p>To run gendiff use following commands:<ul><li>gendiff path/to/file1 path/to/file2</li><li>brain-calc</li><li>gendiff -h</li></ul></p>
+<p>To run gendiff use following commands:<ul><li>gendiff path/to/file1 path/to/file2</li><li>gendiff -h</li></ul></p>
 <h2>Install and run demo:</h2>
 <p> </p>
 </div>
