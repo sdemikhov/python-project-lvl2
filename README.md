@@ -12,12 +12,12 @@
 >>> diff = generate_diff('before.json', 'after.json')
 >>> print(diff)
 {
-    host: https://github.com/sdemikhov/python-project-lvl2
+    host: hexlet.io
   + timeout: 20
   - timeout: 50
   - proxy: 123.234.53.22
   + verbose: True
 }</pre>
 <h2>Install and run demo:</h2>
-<p> </p>
+<p><a href="https://asciinema.org/a/V2F2qBXuXhSvMpjR6giEdyRJW" target="_blank"><img src="https://asciinema.org/a/V2F2qBXuXhSvMpjR6giEdyRJW.svg" /></a></p>
 </div>
