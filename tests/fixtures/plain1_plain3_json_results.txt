@@ -1,0 +1,8 @@
+{
+  - host: hexlet.io
+  - proxy: 123.234.53.22
+  - timeout: 50
+  + address: 127.0.0.1
+  + delay: 30
+  + brief: True
+}
