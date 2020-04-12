@@ -42,3 +42,14 @@ def test_plain_json(path_json1, path_json2, path_expected):
 
     for row in expected:
         assert row in diff, 'must contain expected rows'
+
+
+def test_edited_fields_json():
+    diff = generate_diff(
+        FIXTURES_DIR / 'plain1.json',
+        FIXTURES_DIR / 'plain2.json'
+    )
+
+    expected = "  + timeout: 20\n  - timeout: 50"
+
+    assert expected in diff, 'edited fields should be together'
