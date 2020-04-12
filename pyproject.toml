@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "sdemikhov_gendiff"
-version = "0.2.1"
+version = "0.3.0"
 description = "Gendiff is a CLI tool to find the difference between two JSON/YAML files"
 authors = ["Sergey Demikhov <demikhov.sergey@gmail.com>"]
 
@@ -19,6 +19,7 @@ classifiers = [
 
 [tool.poetry.dependencies]
 python = "^3.7"
+pyyaml = "^5.3.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.4.1"

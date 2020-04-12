@@ -4,4 +4,13 @@ lint:
 	poetry run flake8 gendiff
 test:
 	poetry run pytest gendiff tests
-.PHONY: install lint
+
+selfcheck:
+	poetry check
+
+check: selfcheck test lint
+
+build: check
+	@poetry build
+
+.PHONY: install test lint selfcheck check build

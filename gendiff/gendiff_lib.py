@@ -1,6 +1,5 @@
-import json
-
 from gendiff import cli
+from gendiff.file_loader import load_file
 
 
 def run():
@@ -13,17 +12,12 @@ def run():
 
 
 def generate_diff(path_to_file1, path_to_file2):
-    file1 = get_data_from_json(path_to_file1)
-    file2 = get_data_from_json(path_to_file2)
+    file1 = load_file(path_to_file1)
+    file2 = load_file(path_to_file2)
 
     difference = make_difference(file1, file2)
 
     return format_difference_plain(difference)
-
-
-def get_data_from_json(path_to_file):
-    with open(path_to_file) as json_file:
-        return json.load(json_file)
 
 
 def make_difference(file1, file2):
