@@ -1,0 +1,11 @@
+shared:
+  property1: Item 1
+  property2: '300'
+  property3: false
+  property6:
+    name: setting
+user1:
+  bag: bax
+  baz: bah
+user2:
+  def: '6789'

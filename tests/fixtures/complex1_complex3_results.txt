@@ -1,0 +1,8 @@
+{
+  - group2: {'abc': '12345'}
+  - common: {'setting1': 'Value 1', 'setting2': '200', 'setting3': True, 'setting6': {'key': 'value'}}
+  - group1: {'baz': 'bas', 'foo': 'bar'}
+  + shared: {'property1': 'Item 1', 'property2': '300', 'property3': False, 'property6': {'name': 'setting'}}
+  + user2: {'def': '6789'}
+  + user1: {'bag': 'bax', 'baz': 'bah'}
+}

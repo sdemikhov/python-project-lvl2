@@ -1,17 +1,18 @@
-from gendiff import cli
+# -*- coding: utf-8 -*-
+
+"""The gendiff_lib module provides files comparsion and diff generation."""
+
 from gendiff.file_loader import load_file
 
 
-def run():
-    arguments = cli.make_arguments()
-    path_to_file1 = cli.get_path_to_file1(arguments)
-    path_to_file2 = cli.get_path_to_file2(arguments)
-
-    diff = generate_diff(path_to_file1, path_to_file2)
-    print(diff, end='')
-
-
 def generate_diff(path_to_file1, path_to_file2):
+    """
+    Generate string representation of diff.
+
+    Keyword arguments:
+    path_to_file1 -- location in a file system for first file
+    path_to_file2 -- location in a file system for second file
+    """
     data_file1 = load_file(path_to_file1)
     data_file2 = load_file(path_to_file2)
 
@@ -19,12 +20,19 @@ def generate_diff(path_to_file1, path_to_file2):
 
     return stringify_difference(
         difference,
-        indent_level = 0,
-        indent_type = '  '
+        start_indent_level=0,
+        indent_type='  ',
     )
 
 
 def make_difference(data_file1, data_file2):
+    """
+    Create inner representation of diff.
+
+    Keyword arguments:
+    data_file1 -- content of first loaded file
+    data_file2 -- content of second loaded file
+    """
     difference = {}
 
     keys_file1 = set(data_file1.keys())
@@ -33,7 +41,7 @@ def make_difference(data_file1, data_file2):
     shared_keys = keys_file1 & keys_file2
     unique_keys_file1 = keys_file1 - keys_file2
     unique_keys_file2 = keys_file2 - keys_file1
-    
+
     for unique_key1 in unique_keys_file1:
         difference[unique_key1] = {
             'type': 'deleted_element',
@@ -49,9 +57,9 @@ def make_difference(data_file1, data_file2):
     for shared_key in shared_keys:
         if data_file1[shared_key] == data_file2[shared_key]:
             difference[shared_key] = {
-            'type': 'unchanged_element',
-            'value': data_file1[shared_key],
-        }
+                'type': 'unchanged_element',
+                'value': data_file1[shared_key],
+            }
         else:
             shared_values = (data_file1[shared_key], data_file2[shared_key])
             if all(isinstance(value, dict) for value in shared_values):
@@ -70,78 +78,203 @@ def make_difference(data_file1, data_file2):
     return difference
 
 
-def stringify_difference(difference, indent_level, indent_type):
-    indent = indent_type * indent_level
-    result = '{indent}{{\n'.format(indent = indent)
-    for key, value in difference.items():
-        if value.get('type') == 'container':
-            container = stringify_difference(
-                value.get('value'),
-                indent_level + 1,
+def get_difference_items_sorted(difference):
+    """
+    Return the items from inner representation of diff in ascend order.
+
+    Keyword arguments:
+    difference -- inner representation of diff
+    """
+    difference_items = sorted(
+        (key, element) for key, element in difference.items()
+    )
+
+    for key, element in difference_items:
+        yield (key, element)
+
+
+def get_element_type(element):
+    """
+    Return the type of single item in inner representation of diff.
+
+    Keyword arguments:
+    element -- single item of difference (inner representation of diff)
+    """
+    return element['type']
+
+
+def get_element_value(element):
+    """
+    Return the value of single item in inner representation of diff.
+
+    Keyword arguments:
+    element -- single item of difference (inner representation of diff)
+    """
+    return element['value']
+
+
+def get_value_before(value):
+    """
+    Return the 'before' field from value of single edited_element.
+
+    Keyword arguments:
+    value -- value field from single item of inner representation of diff
+    """
+    return value['before']
+
+
+def get_value_after(value):
+    """
+    Return a 'after' field from value of single edited_element.
+
+    Keyword arguments:
+    value -- value field from single item of inner representation of diff
+    """
+    return value['after']
+
+
+INDENT_STEP = 1
+
+
+START_DIFFERENCE_TEMPLATE = '{{\n'
+END_DIFFERENCE_TEMPLATE = '{indent}}}\n'
+
+
+def stringify_difference(difference, start_indent_level, indent_type):
+    """
+    Create string from inner representation of diff.
+
+    Keyword arguments:
+    difference -- inner representation of diff
+    start_indent_level -- initial position for first column
+    indent_type -- sets indent characters
+    """
+    indent = indent_type * start_indent_level
+
+    result = START_DIFFERENCE_TEMPLATE.format(indent=indent)
+
+    for key, element in get_difference_items_sorted(difference):
+        if get_element_type(element) == 'container':
+            content_as_string = stringify_difference(
+                get_element_value(element),
+                start_indent_level + INDENT_STEP,
                 indent_type
             )
-            element_as_string = '{indent}{key}: {container}'.format(
-                indent=indent_type * (indent_level + 1),
-                key=key,
-                container=container,
+            element_as_string = stringify_container(
+                key,
+                content_as_string,
+                indent_type * (start_indent_level + INDENT_STEP)
             )
-        elif value.get('type').endswith('unchanged_element'):
+        elif get_element_type(element) == 'unchanged_element':
             element_as_string = stringify_unchanged_element(
-                {key: value.get('value')},
-                indent_type * (indent_level + 1)
+                key,
+                get_element_value(element),
+                indent_type * (start_indent_level + INDENT_STEP)
             )
-        elif value.get('type').endswith('edited_element'):
+        elif get_element_type(element) == 'edited_element':
             element_as_string = stringify_edited_element(
-                {key: value.get('value')},
-                indent_type * (indent_level + 1)
+                key,
+                get_element_value(element),
+                indent_type * (start_indent_level + INDENT_STEP)
             )
-        elif value.get('type').endswith('deleted_element'):
+        elif get_element_type(element) == 'deleted_element':
             element_as_string = stringify_deleted_element(
-                {key: value.get('value')},
-                indent_type * (indent_level + 1)
+                key,
+                get_element_value(element),
+                indent_type * (start_indent_level + INDENT_STEP)
             )
-        elif value.get('type').endswith('added_element'):
+        elif get_element_type(element) == 'added_element':
             element_as_string = stringify_added_element(
-                {key: value.get('value')},
-                indent_type * (indent_level + 1)
+                key,
+                get_element_value(element),
+                indent_type * (start_indent_level + INDENT_STEP)
             )
         result += element_as_string
-    result += '{indent}}}\n'.format(indent = indent)
+    result += END_DIFFERENCE_TEMPLATE.format(indent=indent)
     return result
 
 
-def stringify_unchanged_element(element, indent):
-    template = '{indent}{key}: {value}\n'
-    return element_to_string(element, template, indent)
+CONTAINER_TEMPLATE = '{indent}  {key}: {value}'
 
 
-def stringify_edited_element(element, indent):
-    element_as_string = ''
-    template = ('{indent}+ {key}: {after}\n{indent}- {key}: {before}\n')
-    for key, value in element.items():
-        before = value['before']
-        after = value['after']
-        element_as_string += template.format(
+def stringify_container(key, value, indent):
+    """
+    Create string from container element.
+
+    Keyword arguments:
+    key -- key of element in inner representation of diff
+    value -- value of element in inner representation of diff
+    indent -- indent characters of certain level
+    """
+    return CONTAINER_TEMPLATE.format(indent=indent, key=key, value=value)
+
+
+UNCHANGED_ELEMENT_TEMPLATE = '{indent}  {key}: {value}\n'
+
+
+def stringify_unchanged_element(key, value, indent):
+    """
+    Create string from unchanged element.
+
+    Keyword arguments:
+    key -- key of element in inner representation of diff
+    value -- value of element in inner representation of diff
+    indent -- indent characters of certain level
+    """
+    return UNCHANGED_ELEMENT_TEMPLATE.format(
+        indent=indent,
+        key=key,
+        value=value
+    )
+
+
+EDITED_ELEMENT_TEMPLATE = (
+    '{indent}+ {key}: {after}\n{indent}- {key}: {before}\n'
+)
+
+
+def stringify_edited_element(key, value, indent):
+    """
+    Create string from edited element.
+
+    Keyword arguments:
+    key -- key of element in inner representation of diff
+    value -- value of element in inner representation of diff
+    indent -- indent characters of certain level
+    """
+    return EDITED_ELEMENT_TEMPLATE.format(
             indent=indent,
             key=key,
-            before=before,
-            after=after,
+            before=get_value_before(value),
+            after=get_value_after(value),
         )
-    return element_as_string
 
 
-def stringify_deleted_element(element, indent):
-    template = '{indent}- {key}: {value}\n'
-    return element_to_string(element, template, indent)
+DELETED_ELEMENT_TEMPLATE = '{indent}- {key}: {value}\n'
 
 
-def stringify_added_element(element, indent):
-    template = '{indent}+ {key}: {value}\n'
-    return element_to_string(element, template, indent)
+def stringify_deleted_element(key, value, indent):
+    """
+    Create string from deleted element.
+
+    Keyword arguments:
+    key -- key of element in inner representation of diff
+    value -- value of element in inner representation of diff
+    indent -- indent characters of certain level
+    """
+    return DELETED_ELEMENT_TEMPLATE.format(indent=indent, key=key, value=value)
 
 
-def element_to_string(element, template, indent):
-    element_as_string = ''
-    for key, value in element.items():
-        element_as_string += template.format(indent=indent,key=key, value=value)
-    return element_as_string
+ADDED_ELEMENT_TEMPLATE = '{indent}+ {key}: {value}\n'
+
+
+def stringify_added_element(key, value, indent):
+    """
+    Create string from added element.
+
+    Keyword arguments:
+    key -- key of element in inner representation of diff
+    value -- value of element in inner representation of diff
+    indent -- indent characters of certain level
+    """
+    return ADDED_ELEMENT_TEMPLATE.format(indent=indent, key=key, value=value)
