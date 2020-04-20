@@ -5,7 +5,7 @@
 from gendiff.file_loader import load_file
 
 
-def generate_diff(path_to_file1, path_to_file2):
+def generate_diff(path_to_file1, path_to_file2, output_format='json'):
     """
     Generate string representation of diff.
 
@@ -16,16 +16,17 @@ def generate_diff(path_to_file1, path_to_file2):
     data_file1 = load_file(path_to_file1)
     data_file2 = load_file(path_to_file2)
 
-    difference = make_difference(data_file1, data_file2)
-
-    return stringify_difference(
-        difference,
+    diff_tree = make_diff_tree(data_file1, data_file2)
+    print(f"path_to_file1={path_to_file1}, path_to_file2={path_to_file2}, output_format={output_format}")
+    return stringify_diff_tree(
+        diff_tree,
         start_indent_level=0,
         indent_type='  ',
+        output_format=output_format,
     )
 
 
-def make_difference(data_file1, data_file2):
+def make_diff_tree(data_file1, data_file2):
     """
     Create inner representation of diff.
 
@@ -33,7 +34,7 @@ def make_difference(data_file1, data_file2):
     data_file1 -- content of first loaded file
     data_file2 -- content of second loaded file
     """
-    difference = {}
+    diff_tree = {}
 
     keys_file1 = set(data_file1.keys())
     keys_file2 = set(data_file2.keys())
@@ -43,53 +44,53 @@ def make_difference(data_file1, data_file2):
     unique_keys_file2 = keys_file2 - keys_file1
 
     for unique_key1 in unique_keys_file1:
-        difference[unique_key1] = {
+        diff_tree[unique_key1] = {
             'type': 'deleted_element',
             'value': data_file1[unique_key1],
         }
 
     for unique_key2 in unique_keys_file2:
-        difference[unique_key2] = {
+        diff_tree[unique_key2] = {
             'type': 'added_element',
             'value': data_file2[unique_key2],
         }
 
     for shared_key in shared_keys:
         if data_file1[shared_key] == data_file2[shared_key]:
-            difference[shared_key] = {
+            diff_tree[shared_key] = {
                 'type': 'unchanged_element',
                 'value': data_file1[shared_key],
             }
         else:
             shared_values = (data_file1[shared_key], data_file2[shared_key])
             if all(isinstance(value, dict) for value in shared_values):
-                difference[shared_key] = {
+                diff_tree[shared_key] = {
                     'type': 'container',
-                    'value': make_difference(*shared_values),
+                    'value': make_diff_tree(*shared_values),
                 }
             else:
-                difference[shared_key] = {
+                diff_tree[shared_key] = {
                     'type': 'edited_element',
                     'value': {
                         'before': data_file1[shared_key],
                         'after': data_file2[shared_key],
                     }
                 }
-    return difference
+    return diff_tree
 
 
-def get_difference_items_sorted(difference):
+def get_diff_tree_items_sorted(diff_tree):
     """
     Return the items from inner representation of diff in ascend order.
 
     Keyword arguments:
-    difference -- inner representation of diff
+    diff_tree -- inner representation of diff
     """
-    difference_items = sorted(
-        (key, element) for key, element in difference.items()
+    diff_tree_items = sorted(
+        (key, element) for key, element in diff_tree.items()
     )
 
-    for key, element in difference_items:
+    for key, element in diff_tree_items:
         yield (key, element)
 
 
@@ -98,7 +99,7 @@ def get_element_type(element):
     Return the type of single item in inner representation of diff.
 
     Keyword arguments:
-    element -- single item of difference (inner representation of diff)
+    element -- single item of diff_tree (inner representation of diff)
     """
     return element['type']
 
@@ -108,7 +109,7 @@ def get_element_value(element):
     Return the value of single item in inner representation of diff.
 
     Keyword arguments:
-    element -- single item of difference (inner representation of diff)
+    element -- single item of diff_tree (inner representation of diff)
     """
     return element['value']
 
@@ -136,26 +137,31 @@ def get_value_after(value):
 INDENT_STEP = 1
 
 
-START_DIFFERENCE_TEMPLATE = '{{\n'
-END_DIFFERENCE_TEMPLATE = '{indent}}}\n'
+START_DIFF_TREE_TEMPLATE = '{{\n'
+END_DIFF_TREE_TEMPLATE = '{indent}}}\n'
 
 
-def stringify_difference(difference, start_indent_level, indent_type):
+def stringify_diff_tree(
+        diff_tree,
+        start_indent_level,
+        indent_type,
+        output_format,
+    ):
     """
     Create string from inner representation of diff.
 
     Keyword arguments:
-    difference -- inner representation of diff
+    diff_tree -- inner representation of diff
     start_indent_level -- initial position for first column
     indent_type -- sets indent characters
     """
     indent = indent_type * start_indent_level
 
-    result = START_DIFFERENCE_TEMPLATE.format(indent=indent)
+    result = START_DIFF_TREE_TEMPLATE.format(indent=indent)
 
-    for key, element in get_difference_items_sorted(difference):
+    for key, element in get_diff_tree_items_sorted(diff_tree):
         if get_element_type(element) == 'container':
-            content_as_string = stringify_difference(
+            content_as_string = stringify_diff_tree(
                 get_element_value(element),
                 start_indent_level + INDENT_STEP,
                 indent_type
@@ -190,7 +196,7 @@ def stringify_difference(difference, start_indent_level, indent_type):
                 indent_type * (start_indent_level + INDENT_STEP)
             )
         result += element_as_string
-    result += END_DIFFERENCE_TEMPLATE.format(indent=indent)
+    result += END_DIFF_TREE_TEMPLATE.format(indent=indent)
     return result
 
 

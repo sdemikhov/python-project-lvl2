@@ -8,10 +8,12 @@ import argparse
 def get_parsed_arguments():
     """Return user entered arguments in explicit form."""
     arguments = make_arguments()
+    print(f'arguments {arguments}')
 
     path_to_file1 = get_path_to_file1(arguments)
     path_to_file2 = get_path_to_file2(arguments)
-    return (path_to_file1, path_to_file2)
+    output_format = get_output_format(arguments)
+    return (path_to_file1, path_to_file2, output_format)
 
 
 def make_arguments():
@@ -27,16 +29,23 @@ def make_arguments():
         help='set format of output',
         choices=['plain', 'json'],
         metavar='FORMAT',
+        dest='output_format',
+        default='json',
     )
 
     return parser.parse_args()
 
 
 def get_path_to_file1(arguments):
-    """Take arguments in argparse form and return path to first file."""
+    """Return path to first file from argparse arguments."""
     return arguments.first_file
 
 
 def get_path_to_file2(arguments):
-    """Take arguments in argparse form and return path to second file."""
+    """Return path to second file from argparse arguments."""
     return arguments.second_file
+
+
+def get_output_format(arguments):
+    """Return output format type from argparse arguments."""
+    return arguments.output_format
