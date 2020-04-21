@@ -1,0 +1,6 @@
+Property 'common' was removed
+Property 'group1' was removed
+Property 'group2' was removed
+Property 'shared' was added with value: 'complex value'
+Property 'user1' was added with value: 'complex value'
+Property 'user2' was added with value: 'complex value'

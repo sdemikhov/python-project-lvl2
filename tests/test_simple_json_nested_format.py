@@ -9,26 +9,26 @@ FIXTURES_DIR = TESTS_DIR / 'fixtures'
 
 PLAIN_JSON_DATA = [
     (
-        FIXTURES_DIR / 'plain1.json',
-        FIXTURES_DIR / 'plain2.json',
-        FIXTURES_DIR / 'plain1_plain2_results.txt',
+        FIXTURES_DIR / 'simple1.json',
+        FIXTURES_DIR / 'simple2.json',
+        FIXTURES_DIR / 'simple1_simple2_result_nested_format.txt',
     ),
     (
-        FIXTURES_DIR / 'plain1.json',
-        FIXTURES_DIR / 'plain1.json',
-        FIXTURES_DIR / 'plain1_plain1_results.txt',
+        FIXTURES_DIR / 'simple1.json',
+        FIXTURES_DIR / 'simple1.json',
+        FIXTURES_DIR / 'simple1_simple1_result_nested_format.txt',
     ),
     (
-        FIXTURES_DIR / 'plain1.json',
-        FIXTURES_DIR / 'plain3.json',
-        FIXTURES_DIR / 'plain1_plain3_results.txt',
+        FIXTURES_DIR / 'simple1.json',
+        FIXTURES_DIR / 'simple3.json',
+        FIXTURES_DIR / 'simple1_simple3_result_nested_format.txt',
     ),
 ]
 
 
 @pytest.mark.parametrize('path_json1,path_json2,path_expected',
                          PLAIN_JSON_DATA)
-def test_plain_json(path_json1, path_json2, path_expected):
+def test_simple_json(path_json1, path_json2, path_expected):
     diff = generate_diff(path_json1, path_json2).split('\n')
 
     with open(path_expected) as f:
@@ -42,8 +42,8 @@ def test_plain_json(path_json1, path_json2, path_expected):
 
 def test_edited_fields_json():
     diff = generate_diff(
-        FIXTURES_DIR / 'plain1.json',
-        FIXTURES_DIR / 'plain2.json'
+        FIXTURES_DIR / 'simple1.json',
+        FIXTURES_DIR / 'simple2.json'
     )
 
     expected = "  + timeout: 20\n  - timeout: 50"

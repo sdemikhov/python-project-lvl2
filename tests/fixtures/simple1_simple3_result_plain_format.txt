@@ -1,0 +1,6 @@
+Property 'address' was added with value: '127.0.0.1'
+Property 'brief' was added with value: 'True'
+Property 'delay' was added with value: '30'
+Property 'host' was removed
+Property 'proxy' was removed
+Property 'timeout' was removed

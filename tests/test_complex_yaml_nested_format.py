@@ -7,29 +7,29 @@ from gendiff.gendiff_lib import generate_diff
 TESTS_DIR = Path(__file__).parent.absolute()
 FIXTURES_DIR = TESTS_DIR / 'fixtures'
 
-COMPLEX_JSON_DATA = [
+COMPLEX_YAML_DATA = [
     (
-        FIXTURES_DIR / 'complex1.json',
-        FIXTURES_DIR / 'complex2.json',
-        FIXTURES_DIR / 'complex1_complex2_results.txt',
+        FIXTURES_DIR / 'complex1.yaml',
+        FIXTURES_DIR / 'complex2.yaml',
+        FIXTURES_DIR / 'complex1_complex2_result_nested_format.txt',
     ),
     (
-        FIXTURES_DIR / 'complex1.json',
-        FIXTURES_DIR / 'complex1.json',
-        FIXTURES_DIR / 'complex1_complex1_results.txt',
+        FIXTURES_DIR / 'complex1.yaml',
+        FIXTURES_DIR / 'complex1.yaml',
+        FIXTURES_DIR / 'complex1_complex1_result_nested_format.txt',
     ),
     (
-        FIXTURES_DIR / 'complex1.json',
-        FIXTURES_DIR / 'complex3.json',
-        FIXTURES_DIR / 'complex1_complex3_results.txt',
+        FIXTURES_DIR / 'complex1.yaml',
+        FIXTURES_DIR / 'complex3.yaml',
+        FIXTURES_DIR / 'complex1_complex3_result_nested_format.txt',
     ),
 ]
 
 
-@pytest.mark.parametrize('path_json1,path_json2,path_expected',
-                         COMPLEX_JSON_DATA)
-def test_complex_json(path_json1, path_json2, path_expected):
-    diff = generate_diff(path_json1, path_json2).split('\n')
+@pytest.mark.parametrize('path_yaml1,path_yaml2,path_expected',
+                         COMPLEX_YAML_DATA)
+def test_complex_yaml(path_yaml1, path_yaml2, path_expected):
+    diff = generate_diff(path_yaml1, path_yaml2).split('\n')
 
     with open(path_expected) as f:
         expected = f.read().split('\n')
@@ -40,10 +40,10 @@ def test_complex_json(path_json1, path_json2, path_expected):
         assert row in diff, 'must contain expected rows'
 
 
-def test_edited_fields_json():
+def test_edited_fields_yaml():
     diff = generate_diff(
-        FIXTURES_DIR / 'complex1.json',
-        FIXTURES_DIR / 'complex2.json'
+        FIXTURES_DIR / 'complex1.yaml',
+        FIXTURES_DIR / 'complex2.yaml'
     )
 
 

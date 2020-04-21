@@ -8,7 +8,6 @@ import argparse
 def get_parsed_arguments():
     """Return user entered arguments in explicit form."""
     arguments = make_arguments()
-    print(f'arguments {arguments}')
 
     path_to_file1 = get_path_to_file1(arguments)
     path_to_file2 = get_path_to_file2(arguments)
