@@ -21,4 +21,6 @@
 }</pre>
 <h2>Install and run demo:</h2>
 <p><a href="https://asciinema.org/a/NHZoftKjlnyPKrlitPAd2cvHO" target="_blank"><img src="https://asciinema.org/a/NHZoftKjlnyPKrlitPAd2cvHO.svg" /></a></p>
+<h2>Run gendiff with plain text format demo:</h2>
+<p><a href="https://asciinema.org/a/ZZ73v5fi1puM8RzWI15lx8NSg" target="_blank"><img src="https://asciinema.org/a/ZZ73v5fi1puM8RzWI15lx8NSg.svg" /></a></p>
 </div>
