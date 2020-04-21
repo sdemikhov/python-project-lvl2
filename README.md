@@ -7,7 +7,20 @@
 <pre>pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.python.org/pypi/ sdemikhov-gendiff</pre>
 <ul><li>use pip install --user to install packages into your day-to-day default Python environment.</li></ul>
 <h2>Run gendiff:</h2>
-<p>To run gendiff use following commands:<ul><li>gendiff path/to/file1 path/to/file2</li><li>gendiff -h</li></ul></p>
+<pre>usage: gendiff [-h] [-f FORMAT] first_file second_file
+
+Generate diff
+
+positional arguments:
+  first_file            location in a file system for first file
+  second_file           location in a file system for second file
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -f FORMAT, --format FORMAT
+                        Output format: choose from 'json', 'plain' (default
+                        json)
+</pre>
 <p>You can also use gendiff as a library in your code:</p>
 <pre>>>> from gendiff import generate_diff
 >>> diff = generate_diff('before.json', 'after.json')
