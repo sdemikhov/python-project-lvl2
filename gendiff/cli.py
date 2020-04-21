@@ -19,13 +19,21 @@ def make_arguments():
     """Return all user entered arguments in argparse form."""
     parser = argparse.ArgumentParser(description='Generate diff')
 
-    parser.add_argument('first_file', action='store')
-    parser.add_argument('second_file', action='store')
+    parser.add_argument(
+        'first_file',
+        action='store',
+        help='location in a file system for first file'
+        )
+    parser.add_argument(
+        'second_file',
+        action='store',
+        help='location in a file system for second file'
+        )
     parser.add_argument(
         '-f',
         '--format',
         action='store',
-        help='set format of output',
+        help="Output format: choose from 'json', 'plain' (default json)",
         choices=['plain', 'json'],
         metavar='FORMAT',
         dest='output_format',
