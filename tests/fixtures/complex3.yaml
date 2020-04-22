@@ -9,3 +9,7 @@ user1:
   baz: bah
 user2:
   def: '6789'
+user3:
+  pass:
+    phrase:
+      cache: r5g6yr5hjut66rhe4fg4egg4

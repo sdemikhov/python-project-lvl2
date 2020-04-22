@@ -4,3 +4,4 @@ Property 'group2' was removed
 Property 'shared' was added with value: 'complex value'
 Property 'user1' was added with value: 'complex value'
 Property 'user2' was added with value: 'complex value'
+Property 'user3' was added with value: 'complex value'

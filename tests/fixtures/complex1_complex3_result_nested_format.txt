@@ -1,8 +1,9 @@
 {
-  - group2: {'abc': '12345'}
-  - common: {'setting1': 'Value 1', 'setting2': '200', 'setting3': True, 'setting6': {'key': 'value'}}
+  - common: {'setting1': 'Value 1', 'setting2': '200', 'setting3': True, 'setting6': {'key': 'value'}, 'site': {'base': '1234', 'e2': '22'}}
   - group1: {'baz': 'bas', 'foo': 'bar'}
+  - group2: {'abc': '12345'}
   + shared: {'property1': 'Item 1', 'property2': '300', 'property3': False, 'property6': {'name': 'setting'}}
-  + user2: {'def': '6789'}
   + user1: {'bag': 'bax', 'baz': 'bah'}
+  + user2: {'def': '6789'}
+  + user3: {'pass': {'phrase': {'cache': 'r5g6yr5hjut66rhe4fg4egg4'}}}
 }

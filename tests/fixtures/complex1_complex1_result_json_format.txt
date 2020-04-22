@@ -1,0 +1,21 @@
+{
+  "common": {
+    "setting1": "Value 1",
+    "setting2": "200",
+    "setting3": true,
+    "setting6": {
+      "key": "value"
+    },
+    "site": {
+      "base": "1234",
+      "e2": "22"
+    }
+  },
+  "group1": {
+    "baz": "bas",
+    "foo": "bar"
+  },
+  "group2": {
+    "abc": "12345"
+  }
+}

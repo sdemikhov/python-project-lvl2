@@ -6,6 +6,10 @@
     + setting4: blah blah
     + setting5: {'key5': 'value5'}
     - setting6: {'key': 'value'}
+    site: {
+      - base: 1234
+        e2: 22
+    }
   }
   group1: {
     + baz: bars

@@ -3,7 +3,7 @@
 """The gendiff_lib module provides files comparsion and diff generation."""
 
 
-def generate_diff(path_to_file1, path_to_file2, output_format='json'):
+def generate_diff(path_to_file1, path_to_file2, output_format='nested'):
     """
     Generate string representation of diff.
 
@@ -17,10 +17,12 @@ def generate_diff(path_to_file1, path_to_file2, output_format='json'):
 
     diff_tree = make_diff_tree(data_file1, data_file2)
 
-    if output_format == 'json':
+    if output_format == 'nested':
         diff_tree_as_string = stringify_diff_tree_nested(diff_tree)
     elif output_format == 'plain':
         diff_tree_as_string = stringify_diff_tree_plain(diff_tree)
+    elif output_format == 'json':
+        diff_tree_as_string = stringify_diff_tree_json(diff_tree)
     return diff_tree_as_string
 
 
@@ -135,3 +137,4 @@ def get_value_after(value):
 from gendiff.file_loader import load_file # noqa E402
 from gendiff.nested_stringifier import stringify_diff_tree_nested # noqa E402
 from gendiff.plain_stringifier import stringify_diff_tree_plain # noqa E402
+from gendiff.json_stringifier import stringify_diff_tree_json # noqa E402

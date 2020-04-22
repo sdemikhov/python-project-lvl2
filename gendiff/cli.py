@@ -33,11 +33,13 @@ def make_arguments():
         '-f',
         '--format',
         action='store',
-        help="Output format: choose from 'json', 'plain' (default json)",
-        choices=['plain', 'json'],
+        help=(
+            "Output format: 'nested', 'plain', 'json' (default nested)"
+        ),
+        choices=['nested', 'plain', 'json'],
         metavar='FORMAT',
         dest='output_format',
-        default='json',
+        default='nested',
     )
 
     return parser.parse_args()
