@@ -7,231 +7,205 @@ from gendiff.gendiff_lib import generate_diff
 TESTS_DIR = Path(__file__).parent.absolute()
 FIXTURES_DIR = TESTS_DIR / 'fixtures'
 
-TEST_DATA_NESTED_FORMAT = [
+TEST_DATA = [
     (
-        FIXTURES_DIR / 'simple1.json',
-        FIXTURES_DIR / 'simple2.json',
-        FIXTURES_DIR / 'simple1_simple2_result_nested_format.txt',
+        'simple1.json',
+        'simple2.json',
+        'nested',
     ),
     (
-        FIXTURES_DIR / 'simple1.json',
-        FIXTURES_DIR / 'simple1.json',
-        FIXTURES_DIR / 'simple1_simple1_result_nested_format.txt',
+        'simple1.json',
+        'simple1.json',
+        'nested',
     ),
     (
-        FIXTURES_DIR / 'simple1.json',
-        FIXTURES_DIR / 'simple3.json',
-        FIXTURES_DIR / 'simple1_simple3_result_nested_format.txt',
+        'simple1.json',
+        'simple3.json',
+        'nested',
     ),
     (
-        FIXTURES_DIR / 'simple1.yaml',
-        FIXTURES_DIR / 'simple2.yaml',
-        FIXTURES_DIR / 'simple1_simple2_result_nested_format.txt',
+        'simple1.yaml',
+        'simple2.yaml',
+        'nested',
     ),
     (
-        FIXTURES_DIR / 'simple1.yaml',
-        FIXTURES_DIR / 'simple1.yaml',
-        FIXTURES_DIR / 'simple1_simple1_result_nested_format.txt',
+        'simple1.yaml',
+        'simple1.yaml',
+        'nested',
     ),
     (
-        FIXTURES_DIR / 'simple1.yaml',
-        FIXTURES_DIR / 'simple3.yaml',
-        FIXTURES_DIR / 'simple1_simple3_result_nested_format.txt',
+        'simple1.yaml',
+        'simple3.yaml',
+        'nested',
     ),
     (
-        FIXTURES_DIR / 'complex1.json',
-        FIXTURES_DIR / 'complex2.json',
-        FIXTURES_DIR / 'complex1_complex2_result_nested_format.txt',
+        'complex1.json',
+        'complex2.json',
+        'nested',
     ),
     (
-        FIXTURES_DIR / 'complex1.json',
-        FIXTURES_DIR / 'complex1.json',
-        FIXTURES_DIR / 'complex1_complex1_result_nested_format.txt',
+        'complex1.json',
+        'complex1.json',
+        'nested',
     ),
     (
-        FIXTURES_DIR / 'complex1.json',
-        FIXTURES_DIR / 'complex3.json',
-        FIXTURES_DIR / 'complex1_complex3_result_nested_format.txt',
+        'complex1.json',
+        'complex3.json',
+        'nested',
     ),
     (
-        FIXTURES_DIR / 'complex1.yaml',
-        FIXTURES_DIR / 'complex2.yaml',
-        FIXTURES_DIR / 'complex1_complex2_result_nested_format.txt',
+        'complex1.yaml',
+        'complex2.yaml',
+        'nested',
     ),
     (
-        FIXTURES_DIR / 'complex1.yaml',
-        FIXTURES_DIR / 'complex1.yaml',
-        FIXTURES_DIR / 'complex1_complex1_result_nested_format.txt',
+        'complex1.yaml',
+        'complex1.yaml',
+        'nested',
     ),
     (
-        FIXTURES_DIR / 'complex1.yaml',
-        FIXTURES_DIR / 'complex3.yaml',
-        FIXTURES_DIR / 'complex1_complex3_result_nested_format.txt',
+        'complex1.yaml',
+        'complex3.yaml',
+        'nested',
     ),
-]
-
-
-@pytest.mark.parametrize('path_file1,path_file2,path_expected',
-                         TEST_DATA_NESTED_FORMAT)
-def test_nested_format(path_file1, path_file2, path_expected):
-    diff = generate_diff(path_file1, path_file2, 'nested').split('\n')
-
-    with open(path_expected) as f:
-        expected = f.read().split('\n')
-    
-    assert len(diff) == len(expected), 'rows count must be equal'
-
-    for row in expected:
-        assert row in diff, 'must contain expected rows'
-
-
-TEST_DATA_PLAIN_FORMAT = [
-    (
-        FIXTURES_DIR / 'simple1.json',
-        FIXTURES_DIR / 'simple2.json',
-        FIXTURES_DIR / 'simple1_simple2_result_plain_format.txt',
+        (
+        'simple1.json',
+        'simple2.json',
+        'plain',
     ),
     (
-        FIXTURES_DIR / 'simple1.json',
-        FIXTURES_DIR / 'simple1.json',
-        FIXTURES_DIR / 'simple1_simple1_result_plain_format.txt',
+        'simple1.json',
+        'simple1.json',
+        'plain',
     ),
     (
-        FIXTURES_DIR / 'simple1.json',
-        FIXTURES_DIR / 'simple3.json',
-        FIXTURES_DIR / 'simple1_simple3_result_plain_format.txt',
+        'simple1.json',
+        'simple3.json',
+        'plain',
     ),
     (
-        FIXTURES_DIR / 'simple1.yaml',
-        FIXTURES_DIR / 'simple2.yaml',
-        FIXTURES_DIR / 'simple1_simple2_result_plain_format.txt',
+        'simple1.yaml',
+        'simple2.yaml',
+        'plain',
     ),
     (
-        FIXTURES_DIR / 'simple1.yaml',
-        FIXTURES_DIR / 'simple1.yaml',
-        FIXTURES_DIR / 'simple1_simple1_result_plain_format.txt',
+        'simple1.yaml',
+        'simple1.yaml',
+        'plain',
     ),
     (
-        FIXTURES_DIR / 'simple1.yaml',
-        FIXTURES_DIR / 'simple3.yaml',
-        FIXTURES_DIR / 'simple1_simple3_result_plain_format.txt',
+        'simple1.yaml',
+        'simple3.yaml',
+        'plain',
     ),
     (
-        FIXTURES_DIR / 'complex1.json',
-        FIXTURES_DIR / 'complex2.json',
-        FIXTURES_DIR / 'complex1_complex2_result_plain_format.txt',
+        'complex1.json',
+        'complex2.json',
+        'plain',
     ),
     (
-        FIXTURES_DIR / 'complex1.json',
-        FIXTURES_DIR / 'complex1.json',
-        FIXTURES_DIR / 'complex1_complex1_result_plain_format.txt',
+        'complex1.json',
+        'complex1.json',
+        'plain',
     ),
     (
-        FIXTURES_DIR / 'complex1.json',
-        FIXTURES_DIR / 'complex3.json',
-        FIXTURES_DIR / 'complex1_complex3_result_plain_format.txt',
+        'complex1.json',
+        'complex3.json',
+        'plain',
     ),
     (
-        FIXTURES_DIR / 'complex1.yaml',
-        FIXTURES_DIR / 'complex2.yaml',
-        FIXTURES_DIR / 'complex1_complex2_result_plain_format.txt',
+        'complex1.yaml',
+        'complex2.yaml',
+        'plain',
     ),
     (
-        FIXTURES_DIR / 'complex1.yaml',
-        FIXTURES_DIR / 'complex1.yaml',
-        FIXTURES_DIR / 'complex1_complex1_result_plain_format.txt',
+        'complex1.yaml',
+        'complex1.yaml',
+        'plain',
     ),
     (
-        FIXTURES_DIR / 'complex1.yaml',
-        FIXTURES_DIR / 'complex3.yaml',
-        FIXTURES_DIR / 'complex1_complex3_result_plain_format.txt',
+        'complex1.yaml',
+        'complex3.yaml',
+        'plain',
     ),
-]
-
-
-@pytest.mark.parametrize('path_file1,path_file2,path_expected',
-                         TEST_DATA_PLAIN_FORMAT)
-def test_plain_format(path_file1, path_file2, path_expected):
-    diff = generate_diff(path_file1, path_file2, 'plain').split('\n')
-
-    with open(path_expected) as f:
-        expected = f.read().split('\n')
-    
-    assert len(diff) == len(expected), 'rows count must be equal'
-
-    for row in expected:
-        assert row in diff, 'must contain expected rows'
-
-
-TEST_DATA_JSON_FORMAT = [
-    (
-        FIXTURES_DIR / 'simple1.json',
-        FIXTURES_DIR / 'simple2.json',
-        FIXTURES_DIR / 'simple1_simple2_result_json_format.txt',
+        (
+        'simple1.json',
+        'simple2.json',
+        'json',
     ),
     (
-        FIXTURES_DIR / 'simple1.json',
-        FIXTURES_DIR / 'simple1.json',
-        FIXTURES_DIR / 'simple1_simple1_result_json_format.txt',
+        'simple1.json',
+        'simple1.json',
+        'json',
     ),
     (
-        FIXTURES_DIR / 'simple1.json',
-        FIXTURES_DIR / 'simple3.json',
-        FIXTURES_DIR / 'simple1_simple3_result_json_format.txt',
+        'simple1.json',
+        'simple3.json',
+        'json',
     ),
     (
-        FIXTURES_DIR / 'simple1.yaml',
-        FIXTURES_DIR / 'simple2.yaml',
-        FIXTURES_DIR / 'simple1_simple2_result_json_format.txt',
+        'simple1.yaml',
+        'simple2.yaml',
+        'json',
     ),
     (
-        FIXTURES_DIR / 'simple1.yaml',
-        FIXTURES_DIR / 'simple1.yaml',
-        FIXTURES_DIR / 'simple1_simple1_result_json_format.txt',
+        'simple1.yaml',
+        'simple1.yaml',
+        'json',
     ),
     (
-        FIXTURES_DIR / 'simple1.yaml',
-        FIXTURES_DIR / 'simple3.yaml',
-        FIXTURES_DIR / 'simple1_simple3_result_json_format.txt',
+        'simple1.yaml',
+        'simple3.yaml',
+        'json',
     ),
     (
-        FIXTURES_DIR / 'complex1.json',
-        FIXTURES_DIR / 'complex2.json',
-        FIXTURES_DIR / 'complex1_complex2_result_json_format.txt',
+        'complex1.json',
+        'complex2.json',
+        'json',
     ),
     (
-        FIXTURES_DIR / 'complex1.json',
-        FIXTURES_DIR / 'complex1.json',
-        FIXTURES_DIR / 'complex1_complex1_result_json_format.txt',
+        'complex1.json',
+        'complex1.json',
+        'json',
     ),
     (
-        FIXTURES_DIR / 'complex1.json',
-        FIXTURES_DIR / 'complex3.json',
-        FIXTURES_DIR / 'complex1_complex3_result_json_format.txt',
+        'complex1.json',
+        'complex3.json',
+        'json',
     ),
     (
-        FIXTURES_DIR / 'complex1.yaml',
-        FIXTURES_DIR / 'complex2.yaml',
-        FIXTURES_DIR / 'complex1_complex2_result_json_format.txt',
+        'complex1.yaml',
+        'complex2.yaml',
+        'json',
     ),
     (
-        FIXTURES_DIR / 'complex1.yaml',
-        FIXTURES_DIR / 'complex1.yaml',
-        FIXTURES_DIR / 'complex1_complex1_result_json_format.txt',
+        'complex1.yaml',
+        'complex1.yaml',
+        'json',
     ),
     (
-        FIXTURES_DIR / 'complex1.yaml',
-        FIXTURES_DIR / 'complex3.yaml',
-        FIXTURES_DIR / 'complex1_complex3_result_json_format.txt',
+        'complex1.yaml',
+        'complex3.yaml',
+        'json',
     ),
 ]
 
 
-@pytest.mark.parametrize('path_file1,path_file2,path_expected',
-                         TEST_DATA_JSON_FORMAT)
-def test_json_format(path_file1, path_file2, path_expected):
-    diff = generate_diff(path_file1, path_file2, 'json').split('\n')
+@pytest.mark.parametrize('file_name1,file_name2,output_format',
+                         TEST_DATA)
+def test_output_format(file_name1, file_name2, output_format):
+    path_file1 = FIXTURES_DIR / file_name1
+    path_file2 = FIXTURES_DIR / file_name2
 
+    diff = generate_diff(path_file1, path_file2, output_format).split('\n')
+
+    path_expected = (
+        FIXTURES_DIR / '{f_name1}_{f_name2}_result_{output}_format.txt'.format(
+            f_name1=file_name1.split('.')[0],
+            f_name2=file_name2.split('.')[0],
+            output=output_format,
+        )
+    )
     with open(path_expected) as f:
         expected = f.read().split('\n')
     
