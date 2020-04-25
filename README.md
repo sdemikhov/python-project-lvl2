@@ -32,6 +32,27 @@ optional arguments:
   - proxy: 123.234.53.22
   + verbose: True
 }</pre>
-<h2>Install and run demo:</h2>
-<p><a href="https://asciinema.org/a/3yrh7RutegUyIzq6YXI2lzuyV" target="_blank"><img src="https://asciinema.org/a/3yrh7RutegUyIzq6YXI2lzuyV.svg" /></a></p>
+<h2>Development process:</h2>
+<ul>
+  <li>
+    <p>Comparison of plain files (JSON):</p>
+    <p><a href="https://asciinema.org/a/V2F2qBXuXhSvMpjR6giEdyRJW" target="_blank"><img src="https://asciinema.org/a/V2F2qBXuXhSvMpjR6giEdyRJW.svg" /></a></p>
+  </li>
+  <li>
+    <p>Comparison of plain files (YAML):</p>
+    <p><a href="https://asciinema.org/a/f96PUYIT3vzzQdgIwT6OcqlHR" target="_blank"><img src="https://asciinema.org/a/f96PUYIT3vzzQdgIwT6OcqlHR.svg" /></a></p>
+  </li>
+   <li>
+    <p>Recursive comparsion of complex nested files (YAML, JSON):</p>
+    <p><a href="https://asciinema.org/a/NHZoftKjlnyPKrlitPAd2cvHO" target="_blank"><img src="https://asciinema.org/a/NHZoftKjlnyPKrlitPAd2cvHO.svg" /></a></p>
+  </li>
+   <li>
+    <p>Plain output format:</p>
+    <p><a href="https://asciinema.org/a/ZZ73v5fi1puM8RzWI15lx8NSg" target="_blank"><img src="https://asciinema.org/a/ZZ73v5fi1puM8RzWI15lx8NSg.svg" /></a></p>
+  </li>
+   <li>
+    <p>JSON compatible output format:</p>
+    <p><a href="https://asciinema.org/a/3yrh7RutegUyIzq6YXI2lzuyV" target="_blank"><img src="https://asciinema.org/a/3yrh7RutegUyIzq6YXI2lzuyV.svg" /></a></p>
+  </li>
+</ul>
 </div>
