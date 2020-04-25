@@ -18,8 +18,8 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   -f FORMAT, --format FORMAT
-                        Output format: choose from 'json', 'plain' (default
-                        json)
+                        Output format: 'nested', 'plain', 'json' (default
+                        nested)
 </pre>
 <p>You can also use gendiff as a library in your code:</p>
 <pre>>>> from gendiff import generate_diff
@@ -33,7 +33,5 @@ optional arguments:
   + verbose: True
 }</pre>
 <h2>Install and run demo:</h2>
-<p><a href="https://asciinema.org/a/NHZoftKjlnyPKrlitPAd2cvHO" target="_blank"><img src="https://asciinema.org/a/NHZoftKjlnyPKrlitPAd2cvHO.svg" /></a></p>
-<h2>Run gendiff with plain text format demo:</h2>
-<p><a href="https://asciinema.org/a/ZZ73v5fi1puM8RzWI15lx8NSg" target="_blank"><img src="https://asciinema.org/a/ZZ73v5fi1puM8RzWI15lx8NSg.svg" /></a></p>
+<p><a href="https://asciinema.org/a/3yrh7RutegUyIzq6YXI2lzuyV" target="_blank"><img src="https://asciinema.org/a/3yrh7RutegUyIzq6YXI2lzuyV.svg" /></a></p>
 </div>
