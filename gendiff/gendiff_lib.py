@@ -135,6 +135,6 @@ def get_value_after(value):
 
 # to resolve cyclic import moved to the end of file
 from gendiff.file_loader import load_file # noqa E402
-from gendiff.nested_stringifier import stringify_diff_tree_nested # noqa E402
-from gendiff.plain_stringifier import stringify_diff_tree_plain # noqa E402
-from gendiff.json_stringifier import stringify_diff_tree_json # noqa E402
+from gendiff.format.nested_stringifier import stringify_diff_tree_nested # noqa E402
+from gendiff.format.plain_stringifier import stringify_diff_tree_plain # noqa E402
+from gendiff.format.json_stringifier import stringify_diff_tree_json # noqa E402

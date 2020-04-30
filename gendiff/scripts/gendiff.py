@@ -2,14 +2,19 @@
 
 """Run gendiff."""
 
-from gendiff.cli import get_parsed_arguments
+from gendiff.cli import parser
 from gendiff.gendiff_lib import generate_diff
 
 
 def main():
     """Entry point for gendiff."""
-    diff = generate_diff(*get_parsed_arguments())
-    print(diff, end='')
+    arguments = parser.parse_args()
+    diff = generate_diff(
+        arguments.first_file,
+        arguments.second_file,
+        arguments.output_format,
+    )
+    print(diff)
 
 
 if __name__ == "__main__":
