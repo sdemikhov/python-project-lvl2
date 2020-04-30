@@ -2,10 +2,10 @@
 
 """This module makes string representation of diff tree using json format."""
 
-from collections import defaultdict
 import json
+from collections import defaultdict
 
-from gendiff.gendiff_lib import (
+from gendiff.diff_tree import (
     get_diff_tree_items_sorted,
     get_element_type,
     get_element_value,
@@ -14,10 +14,9 @@ from gendiff.gendiff_lib import (
 )
 
 
-def stringify_diff_tree_json(diff_tree):
+def format(diff_tree):
     """
     Create string from diff tree using json compatible format.
-
     Keyword arguments:
     diff_tree -- inner representation of diff
     """
@@ -31,7 +30,6 @@ def stringify_diff_tree_json(diff_tree):
 def make_json_compatible_tree(diff_tree):
     """
     Create json compatible tree from inner representation of diff.
-
     Keyword arguments:
     diff_tree -- inner representation of diff
     """

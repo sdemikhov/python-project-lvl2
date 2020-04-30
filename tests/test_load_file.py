@@ -20,8 +20,8 @@ YAML_PATH = {
 
 
 TXT_PATH = {
-    'absolute': FIXTURES_DIR.absolute() / 'simple1_simple1_result_nested_format.txt',
-    'relative': FIXTURES_DIR / 'simple1_simple1_result_nested_format.txt',
+    'absolute': FIXTURES_DIR.absolute() / 'simple1_simple1_result_default_format.txt',
+    'relative': FIXTURES_DIR / 'simple1_simple1_result_default_format.txt',
 }
 
 def test_different_paths():    

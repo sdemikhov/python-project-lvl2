@@ -14,7 +14,7 @@ def main():
         arguments.second_file,
         arguments.output_format,
     )
-    print(diff)
+    print(diff, end='')
 
 
 if __name__ == "__main__":

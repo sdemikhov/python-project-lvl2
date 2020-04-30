@@ -2,7 +2,7 @@
 
 """This module makes string representation of diff tree using plain format."""
 
-from gendiff.gendiff_lib import (
+from gendiff.diff_tree import (
     get_diff_tree_items_sorted,
     get_element_type,
     get_element_value,
@@ -11,7 +11,7 @@ from gendiff.gendiff_lib import (
 )
 
 
-def stringify_diff_tree_plain(diff_tree, ancestors=[]):
+def format(diff_tree, ancestors=[]):
     """
     Create string from inner representation of diff using plain format.
 
@@ -22,7 +22,7 @@ def stringify_diff_tree_plain(diff_tree, ancestors=[]):
     result = ''
     for key, element in get_diff_tree_items_sorted(diff_tree):
         if get_element_type(element) == 'container':
-            element_as_string = stringify_diff_tree_plain(
+            element_as_string = format(
                 get_element_value(element),
                 ancestors + [key],
             )

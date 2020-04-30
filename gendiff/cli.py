@@ -19,10 +19,10 @@ parser.add_argument(
     '-f',
     '--format',
     help=(
-        "Output format: 'nested', 'plain', 'json' (default nested)"
+        "Output format: 'default', 'plain', 'json'"
     ),
-    choices=['nested', 'plain', 'json'],
+    choices=['default', 'plain', 'json'],
     metavar='FORMAT',
     dest='output_format',
-    default='nested',
+    default='default',
 )

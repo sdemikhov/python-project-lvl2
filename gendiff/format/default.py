@@ -2,7 +2,7 @@
 
 """This module makes string representation of diff tree using nested format."""
 
-from gendiff.gendiff_lib import (
+from gendiff.diff_tree import (
     get_diff_tree_items_sorted,
     get_element_type,
     get_element_value,
@@ -17,7 +17,7 @@ START_DIFF_TREE_TEMPLATE = '{{\n'
 END_DIFF_TREE_TEMPLATE = '{indent}}}\n'
 
 
-def stringify_diff_tree_nested(diff_tree, start_indent_level=0,
+def format(diff_tree, start_indent_level=0,
                                indent_type='  '):
     """
     Create string from inner representation of diff using nested format.
@@ -33,7 +33,7 @@ def stringify_diff_tree_nested(diff_tree, start_indent_level=0,
 
     for key, element in get_diff_tree_items_sorted(diff_tree):
         if get_element_type(element) == 'container':
-            content_as_string = stringify_diff_tree_nested(
+            content_as_string = format(
                 get_element_value(element),
                 start_indent_level + INDENT_STEP,
                 indent_type,
