@@ -11,6 +11,7 @@ import yaml
 JSON_FILENAME_EXTENSIONS = ['.json']
 YAML_FILENAME_EXTENSIONS = ['.yaml', '.yml']
 
+
 def load_file(path_to_file):
     """Return content of a YAML/JSON file as python object.
 

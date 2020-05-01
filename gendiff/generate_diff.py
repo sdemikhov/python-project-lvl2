@@ -11,9 +11,11 @@ def generate_diff(path_to_file1, path_to_file2, output_format=format.DEFAULT):
     """
     Generate string representation of diff.
 
-    Keyword arguments:
+    Arguments:
     path_to_file1 -- location in a file system for first file
     path_to_file2 -- location in a file system for second file
+
+    Keyword argument:
     output_format -- format type to display diff
     """
     data_file1 = load_file(path_to_file1)

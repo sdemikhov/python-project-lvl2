@@ -1,55 +1,71 @@
 # -*- coding: utf-8 -*-
 
-"""The diff_tree module provides files comparsion and create inner representation of diff."""
+"""The diff_tree module provides inner representation of diff."""
 
-def make_diff_tree(data_file1, data_file2):
+TYPE_KEY = 'type'
+VALUE_KEY = 'value'
+VALUE_BEFORE_KEY = 'before'
+VALUE_AFTER_KEY = 'after'
+
+CONTAINER = 'container'
+REMOVED = 'deleted_element'
+ADDED = 'added_element'
+UNCHANGED = 'unchanged_element'
+EDITED = 'edited_element'
+
+
+def make_diff_tree(old_tree, new_tree):
     """
     Create inner representation of diff.
 
-    Keyword arguments:
-    data_file1 -- content of first loaded file
-    data_file2 -- content of second loaded file
+    Arguments:
+    old_tree -- content of first loaded file
+    new_tree -- content of second loaded file
     """
     diff_tree = {}
 
-    keys_file1 = set(data_file1.keys())
-    keys_file2 = set(data_file2.keys())
+    old_tree_keys = old_tree.keys()
+    new_tree_keys = new_tree.keys()
 
-    shared_keys = keys_file1 & keys_file2
-    unique_keys_file1 = keys_file1 - keys_file2
-    unique_keys_file2 = keys_file2 - keys_file1
+    shared_keys = old_tree_keys & new_tree_keys
+    old_tree_unique_keys = old_tree_keys - new_tree_keys
+    new_tree_unique_keys = new_tree_keys - old_tree_keys
 
-    for unique_key1 in unique_keys_file1:
-        diff_tree[unique_key1] = {
-            'type': 'deleted_element',
-            'value': data_file1[unique_key1],
+    for old_tree_unique_key in old_tree_unique_keys:
+        diff_tree[old_tree_unique_key] = {
+            TYPE_KEY: REMOVED,
+            VALUE_KEY: old_tree[old_tree_unique_key],
         }
 
-    for unique_key2 in unique_keys_file2:
-        diff_tree[unique_key2] = {
-            'type': 'added_element',
-            'value': data_file2[unique_key2],
+    for new_tree_unique_key in new_tree_unique_keys:
+        diff_tree[new_tree_unique_key] = {
+            TYPE_KEY: ADDED,
+            VALUE_KEY: new_tree[new_tree_unique_key],
         }
 
     for shared_key in shared_keys:
-        if data_file1[shared_key] == data_file2[shared_key]:
+        old_tree_value_shared = old_tree[shared_key]
+        new_tree_value_shared = new_tree[shared_key]
+        if old_tree_value_shared == new_tree_value_shared:
             diff_tree[shared_key] = {
-                'type': 'unchanged_element',
-                'value': data_file1[shared_key],
+                TYPE_KEY: UNCHANGED,
+                VALUE_KEY: old_tree_value_shared,
             }
         else:
-            shared_values = (data_file1[shared_key], data_file2[shared_key])
-            if all(isinstance(value, dict) for value in shared_values):
+            if (isinstance(old_tree_value_shared, dict) and 
+                    isinstance(new_tree_value_shared, dict)):
                 diff_tree[shared_key] = {
-                    'type': 'container',
-                    'value': make_diff_tree(*shared_values),
+                    TYPE_KEY: CONTAINER,
+                    VALUE_KEY: make_diff_tree(
+                        old_tree_value_shared, new_tree_value_shared
+                    ),
                 }
             else:
                 diff_tree[shared_key] = {
-                    'type': 'edited_element',
-                    'value': {
-                        'before': data_file1[shared_key],
-                        'after': data_file2[shared_key],
+                    TYPE_KEY: EDITED,
+                    VALUE_KEY: {
+                        VALUE_BEFORE_KEY: old_tree_value_shared,
+                        VALUE_AFTER_KEY: new_tree_value_shared,
                     }
                 }
     return diff_tree
@@ -59,15 +75,10 @@ def get_diff_tree_items_sorted(diff_tree):
     """
     Return the items from inner representation of diff in ascend order.
 
-    Keyword arguments:
+    Argument:
     diff_tree -- inner representation of diff
     """
-    diff_tree_items = sorted(
-        (key, element) for key, element in diff_tree.items()
-    )
-
-    for key, element in diff_tree_items:
-        yield (key, element)
+    return sorted(diff_tree.items())
 
 
 def get_element_type(element):
@@ -77,7 +88,7 @@ def get_element_type(element):
     Keyword arguments:
     element -- single item of diff_tree (inner representation of diff)
     """
-    return element['type']
+    return element[TYPE_KEY]
 
 
 def get_element_value(element):
@@ -87,7 +98,7 @@ def get_element_value(element):
     Keyword arguments:
     element -- single item of diff_tree (inner representation of diff)
     """
-    return element['value']
+    return element[VALUE_KEY]
 
 
 def get_value_before(value):
@@ -97,7 +108,7 @@ def get_value_before(value):
     Keyword arguments:
     value -- value field from single item of inner representation of diff
     """
-    return value['before']
+    return value[VALUE_BEFORE_KEY]
 
 
 def get_value_after(value):
@@ -107,4 +118,4 @@ def get_value_after(value):
     Keyword arguments:
     value -- value field from single item of inner representation of diff
     """
-    return value['after']
+    return value[VALUE_AFTER_KEY]

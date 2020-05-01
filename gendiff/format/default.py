@@ -17,8 +17,7 @@ START_DIFF_TREE_TEMPLATE = '{{\n'
 END_DIFF_TREE_TEMPLATE = '{indent}}}\n'
 
 
-def format(diff_tree, start_indent_level=0,
-                               indent_type='  '):
+def format(diff_tree, start_indent_level=0, indent_type='  '):
     """
     Create string from inner representation of diff using nested format.
 
