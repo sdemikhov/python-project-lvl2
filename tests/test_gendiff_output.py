@@ -1,7 +1,7 @@
 import pytest
 from pathlib import Path
 
-from gendiff.gendiff_lib import generate_diff
+from gendiff.generate_diff import generate_diff
 
 
 TESTS_DIR = Path(__file__).parent.absolute()

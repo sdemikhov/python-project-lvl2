@@ -3,7 +3,7 @@
 """Run gendiff."""
 
 from gendiff.cli import parser
-from gendiff.gendiff_lib import generate_diff
+from gendiff.generate_diff import generate_diff
 
 
 def main():
