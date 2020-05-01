@@ -2,7 +2,7 @@
 
 """The gendiff_lib module generate diff."""
 
-from gendiff.file_loader import load_file
+from gendiff.load_file import load_file
 from gendiff import format
 from gendiff import diff_tree
 

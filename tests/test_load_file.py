@@ -1,7 +1,7 @@
 import pytest
 from pathlib import Path
 
-from gendiff.file_loader import load_file
+from gendiff.load_file import load_file
 
 
 TESTS_DIR = Path(__file__).parent
