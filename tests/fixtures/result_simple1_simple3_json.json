@@ -1,0 +1,26 @@
+{
+  "address": {
+    "type": "added_element",
+    "value": "127.0.0.1"
+  },
+  "brief": {
+    "type": "added_element",
+    "value": true
+  },
+  "delay": {
+    "type": "added_element",
+    "value": 30
+  },
+  "host": {
+    "type": "deleted_element",
+    "value": "hexlet.io"
+  },
+  "proxy": {
+    "type": "deleted_element",
+    "value": "123.234.53.22"
+  },
+  "timeout": {
+    "type": "deleted_element",
+    "value": 50
+  }
+}

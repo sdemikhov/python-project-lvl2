@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-"""The gendiff_lib module generate diff."""
+"""The gendiff_lib module provides diff generation."""
 
 from gendiff.load_file import load_file
 from gendiff import format

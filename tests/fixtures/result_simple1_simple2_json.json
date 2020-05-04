@@ -1,0 +1,21 @@
+{
+  "host": {
+    "type": "unchanged_element",
+    "value": "hexlet.io"
+  },
+  "proxy": {
+    "type": "deleted_element",
+    "value": "123.234.53.22"
+  },
+  "timeout": {
+    "type": "edited_element",
+    "value": {
+      "after": 20,
+      "before": 50
+    }
+  },
+  "verbose": {
+    "type": "added_element",
+    "value": true
+  }
+}

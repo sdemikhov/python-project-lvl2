@@ -2,116 +2,72 @@
 
 """This module makes string representation of diff tree using plain format."""
 
-from gendiff.diff_tree import (
-    get_diff_tree_items_sorted,
-    get_element_type,
-    get_element_value,
-    get_value_before,
-    get_value_after
+from gendiff import diff_tree as diff
+
+
+PROPERTY_TEMPLATE = "Property '{}' "
+REMOVED = "was removed"
+EDITED_TEMPLATE = (
+    "was changed. From '{before}' to '{after}'"
+)
+ADDED_TEMPLATE = (
+    "was added with value: '{}'"
 )
 
 
-def format(diff_tree, ancestors=[]):
+def format(diff_tree):
     """
     Create string from inner representation of diff using plain format.
 
-    Keyword arguments:
+    Argument:
     diff_tree -- inner representation of diff
-    ancestors -- sets the list of ancestors for elements
     """
-    result = ''
-    for key, element in get_diff_tree_items_sorted(diff_tree):
-        if get_element_type(element) == 'container':
-            element_as_string = format(
-                get_element_value(element),
-                ancestors + [key],
-            )
-        elif get_element_type(element) == 'unchanged_element':
+    changes = make_changes_list(diff_tree)
+    result = [
+        PROPERTY_TEMPLATE.format('.'.join(path)) + description
+        for path, description in changes
+    ]
+    return '\n'.join(result)
+
+
+def make_changes_list(diff_tree):
+    """
+    Prepare diff to string convertion.
+
+    Argument:
+    diff_tree -- inner representation of diff
+    """
+    result = []
+    for key, element in sorted(diff_tree.items()):
+        type_ = element[diff.TYPE]
+        element_value = element[diff.VALUE]
+        if type_ == diff.CONTAINER:
+            container_value = [
+                ((key, *path), description)
+                for path, description in make_changes_list(element_value)
+            ]
+            result.extend(container_value)
+        elif type_ == diff.UNCHANGED:
             continue
-        elif get_element_type(element) == 'edited_element':
-            element_as_string = stringify_edited_element(
-                key,
-                get_element_value(element),
-                ancestors,
-            )
-        elif get_element_type(element) == 'deleted_element':
-            element_as_string = stringify_deleted_element(
-                key,
-                ancestors,
-            )
-        elif get_element_type(element) == 'added_element':
-            element_as_string = stringify_added_element(
-                key,
-                get_element_value(element),
-                ancestors,
-            )
-        result += element_as_string
+        elif type_ == diff.EDITED:
+            result.append(((key,), EDITED_TEMPLATE.format(
+                before=format_value(element_value[diff.VALUE_BEFORE]),
+                after=format_value(element_value[diff.VALUE_AFTER]),
+            )))
+        elif type_ == diff.REMOVED:
+            result.append(((key,), REMOVED))
+        elif type_ == diff.ADDED:
+            result.append(((key,), ADDED_TEMPLATE.format(
+                format_value(element_value)
+            )))
     return result
 
 
-EDITED_ELEMENT_TEMPLATE = (
-    "Property '{path_to_root}' was changed. From '{before}' to '{after}'\n"
-)
-
-
-def stringify_edited_element(key, value, ancestors):
-    """
-    Create string from edited element.
-
-    Keyword arguments:
-    key -- key of element in inner representation of diff
-    value -- value of element in inner representation of diff
-    ancestors -- the list of ancestors for element
-    """
-    path_to_root = '.'.join(ancestors + [key])
-    return EDITED_ELEMENT_TEMPLATE.format(
-            path_to_root=path_to_root,
-            before=stringify_element_value(get_value_before(value)),
-            after=stringify_element_value(get_value_after(value)),
-        )
-
-
-DELETED_ELEMENT_TEMPLATE = "Property '{path_to_root}' was removed\n"
-
-
-def stringify_deleted_element(key, ancestors):
-    """
-    Create string from deleted element.
-
-    Keyword arguments:
-    key -- key of element in inner representation of diff
-    ancestors -- the list of ancestors for element
-    """
-    path_to_root = '.'.join(ancestors + [key])
-    return DELETED_ELEMENT_TEMPLATE.format(path_to_root=path_to_root)
-
-
-ADDED_ELEMENT_TEMPLATE = (
-    "Property '{path_to_root}' was added with value: '{value}'\n"
-)
-
-
-def stringify_added_element(key, value, ancestors):
-    """
-    Create string from added element.
-
-    Keyword arguments:
-    key -- key of element in inner representation of diff
-    value -- value of element in inner representation of diff
-    ancestors -- the list of ancestors for element
-    """
-    path_to_root = '.'.join(ancestors + [key])
-    return ADDED_ELEMENT_TEMPLATE.format(
-        path_to_root=path_to_root,
-        value=stringify_element_value(value),
-    )
-
-
-def stringify_element_value(value):
+def format_value(value):
     """
     Create string from element's value.
 
-    Keyword arguments:
+    Argument:
     value -- value of element in inner representation of diff
     """
     if any(isinstance(value, _type) for _type in [int, float, str, bool]):

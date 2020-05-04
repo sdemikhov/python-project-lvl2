@@ -1,0 +1,14 @@
+{
+  "host": {
+    "type": "unchanged_element",
+    "value": "hexlet.io"
+  },
+  "proxy": {
+    "type": "unchanged_element",
+    "value": "123.234.53.22"
+  },
+  "timeout": {
+    "type": "unchanged_element",
+    "value": 50
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "common": {
+    "type": "container",
+    "value": {
+      "setting1": {
+        "type": "unchanged_element",
+        "value": "Value 1"
+      },
+      "setting2": {
+        "type": "deleted_element",
+        "value": "200"
+      },
+      "setting3": {
+        "type": "unchanged_element",
+        "value": true
+      },
+      "setting4": {
+        "type": "added_element",
+        "value": "blah blah"
+      },
+      "setting5": {
+        "type": "added_element",
+        "value": {
+          "key5": "value5"
+        }
+      },
+      "setting6": {
+        "type": "deleted_element",
+        "value": {
+          "key": "value"
+        }
+      },
+      "site": {
+        "type": "container",
+        "value": {
+          "base": {
+            "type": "deleted_element",
+            "value": "1234"
+          },
+          "e2": {
+            "type": "unchanged_element",
+            "value": "22"
+          }
+        }
+      }
+    }
+  },
+  "group1": {
+    "type": "container",
+    "value": {
+      "baz": {
+        "type": "edited_element",
+        "value": {
+          "after": "bars",
+          "before": "bas"
+        }
+      },
+      "foo": {
+        "type": "unchanged_element",
+        "value": "bar"
+      }
+    }
+  },
+  "group2": {
+    "type": "deleted_element",
+    "value": {
+      "abc": "12345"
+    }
+  },
+  "group3": {
+    "type": "added_element",
+    "value": {
+      "fee": "100500"
+    }
+  }
+}
