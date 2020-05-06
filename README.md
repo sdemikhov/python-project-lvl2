@@ -52,7 +52,7 @@ optional arguments:
   </li>
    <li>
     <p>JSON compatible output format:</p>
-    <p><a href="https://asciinema.org/a/3yrh7RutegUyIzq6YXI2lzuyV" target="_blank"><img src="https://asciinema.org/a/3yrh7RutegUyIzq6YXI2lzuyV.svg" /></a></p>
+    <p><a href="https://asciinema.org/a/mCh0r0IPX0KHNd26c4rzSqhrV" target="_blank"><img src="https://asciinema.org/a/mCh0r0IPX0KHNd26c4rzSqhrV.svg" /></a></p>
   </li>
 </ul>
 </div>
