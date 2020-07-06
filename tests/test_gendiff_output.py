@@ -24,8 +24,8 @@ def make_test_data(glob_expression):
             test_data.append(
                 (
                     expected.name,
-                    filename1 + extension,
-                    filename2 + extension,
+                    FIXTURES_DIR / (filename1 + extension),
+                    FIXTURES_DIR / (filename2 + extension),
                     format,
                 )
             )
@@ -35,8 +35,8 @@ def make_test_data(glob_expression):
 @pytest.mark.parametrize('expected,file_name1,file_name2,output_format',
                          make_test_data(TEXT_FORMAT_RESULT))
 def test_text_formats(expected, file_name1, file_name2, output_format):
-    path_file1 = FIXTURES_DIR / file_name1
-    path_file2 = FIXTURES_DIR / file_name2
+    path_file1 = file_name1
+    path_file2 = file_name2
 
     diff = generate_diff(path_file1, path_file2, output_format).split('\n')
 
@@ -51,8 +51,8 @@ def test_text_formats(expected, file_name1, file_name2, output_format):
 @pytest.mark.parametrize('expected,file_name1,file_name2,output_format',
                          make_test_data(JSON_FORMAT_RESULT))
 def test_json_format(expected, file_name1, file_name2, output_format):
-    path_file1 = FIXTURES_DIR / file_name1
-    path_file2 = FIXTURES_DIR / file_name2
+    path_file1 = file_name1
+    path_file2 = file_name2
 
     diff = json.loads(generate_diff(path_file1, path_file2, output_format))
 

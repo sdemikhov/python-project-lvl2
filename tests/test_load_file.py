@@ -1,7 +1,7 @@
 import pytest
 from pathlib import Path
 
-from gendiff.load_file import load_file
+from gendiff.file import load
 
 
 TESTS_DIR = Path(__file__).parent
@@ -25,26 +25,26 @@ TXT_PATH = {
 }
 
 def test_different_paths():    
-    assert load_file(JSON_PATH['absolute']), (
+    assert load(JSON_PATH['absolute']), (
         'must work with absolute path'
     )
 
-    assert load_file(JSON_PATH['relative']), (
+    assert load(JSON_PATH['relative']), (
         'must work with relative path'
     )
 
-    assert load_file(YAML_PATH['absolute']), (
+    assert load(YAML_PATH['absolute']), (
         'must work with absolute path'
     )
 
-    assert load_file(YAML_PATH['relative']), (
+    assert load(YAML_PATH['relative']), (
         'must work with relative path'
     )
 
 
 def test_wrong_file():
     with pytest.raises(ValueError):
-        load_file(TXT_PATH['absolute'])
+        load(TXT_PATH['absolute'])
 
     with pytest.raises(ValueError):
-        load_file(TXT_PATH['relative'])
+        load(TXT_PATH['relative'])

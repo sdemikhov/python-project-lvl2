@@ -12,7 +12,7 @@ JSON_FILENAME_EXTENSIONS = ['.json']
 YAML_FILENAME_EXTENSIONS = ['.yaml', '.yml']
 
 
-def load_file(path_to_file):
+def load(path_to_file):
     """Return content of a YAML/JSON file as python object.
 
     Argument:
@@ -25,8 +25,8 @@ def load_file(path_to_file):
     elif filename_suffix in YAML_FILENAME_EXTENSIONS:
         get_data_from_file = yaml.safe_load
     else:
-        raise(ValueError(
+        raise ValueError(
             'Unknown filename extension: {}'.format(path_to_file)
-        ))
+        )
     with open(path_to_file) as f:
         return get_data_from_file(f)
