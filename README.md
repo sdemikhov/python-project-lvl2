@@ -2,7 +2,7 @@
 <div>
 <p><a href="https://codeclimate.com/github/sdemikhov/python-project-lvl2/maintainability"><img src="https://api.codeclimate.com/v1/badges/2112654519a56e92571a/maintainability" /></a>
 <a href="https://travis-ci.org/sdemikhov/python-project-lvl2"><img src="https://travis-ci.org/sdemikhov/python-project-lvl2.svg?branch=master" /></a></p>
-<p>Gendiff is a CLI tool to find the difference between two JSON/YAML files.</p>
+<p>Gendiff is a python CLI tool to find the difference between two JSON/YAML files. See also <a href="https://github.com/sdemikhov/python-project-lvl2">node.js version</a>.</p>
 <h2>Install gendiff:</h2>
 <pre>pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.python.org/pypi/ sdemikhov-gendiff</pre>
 <ul><li>use pip install --user to install packages into your day-to-day default Python environment.</li></ul>
